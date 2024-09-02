@@ -81,7 +81,7 @@ async def close_ws(event):
     )
 
 
-@register(pattern="^/rmnight")
+@register(pattern="^/cnight")
 async def disable_ws(event):
     if event.is_group:
         if not (await is_register_admin(event.input_chat, event.message.sender_id)):
@@ -153,7 +153,7 @@ __help__ = """
 *Admins Only*
 
 ❍ /nightmode*:* Adds Group to NightMode Chats
- ❍ /rmnight*:* Removes Group From NightMode Chats
+ ❍ /cnight*:* Removes Group From NightMode Chats
 
 *Note:* Night Mode chats get Automatically closed at 12 am(IST) and Automatically openned at 6 am(IST) to Prevent Night Spams.
 """
