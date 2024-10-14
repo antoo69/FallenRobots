@@ -1,7 +1,8 @@
 # We're using Debian Slim Buster image
 FROM python:3.10-slim-buster
 
-ENV PIP_NO_CACHE_DIR 1
+# Menggunakan format ENV key=value yang disarankan
+ENV PIP_NO_CACHE_DIR=1
 
 RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
@@ -64,17 +65,18 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/FallenRobot
-RUN git clone https://github.com/AnonymousX1025/FallenRobot /root/FallenRobot
+# Clone repo FallenRobot
+RUN git clone -b dev https://github.com/antoo69/FallenRobots/ /root/FallenRobot
 WORKDIR /root/FallenRobot
 
-#Copy config file to /root/FallenRobot/FallenRobot
+# Copy config file
 COPY ./FallenRobot/config.py ./FallenRobot/config.py* /root/FallenRobot/FallenRobot/
 
+# Menambahkan PATH environment variable
 ENV PATH="/home/bot/bin:$PATH"
 
-# Install requirements
+# Install dependencies dari requirements.txt
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","FallenRobot"]
+CMD ["python3", "-m", "FallenRobot"]
